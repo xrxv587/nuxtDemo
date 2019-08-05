@@ -4,8 +4,7 @@ module.exports = {
     'element-ui/lib/theme-chalk/index.css'
   ],
   plugins: [
-    { src: '@@plugins/elementUI', ssr: true },
-    { src: '@@plugins/axios' }
+    { src: '@@plugins/elementUI', ssr: true }
   ],
   vendor: [
     'elementUI'
@@ -16,5 +15,12 @@ module.exports = {
         config.devtool = 'inline-source-map';
       }
     }
+  },
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  axios: {
+    host: 'pcapi.ccuol.cn',
+    port: 80
   }
 }

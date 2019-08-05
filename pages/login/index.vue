@@ -70,7 +70,7 @@
 <script>
 import session from '../../assets/js/session';
 import local from '../../assets/js/local';
-import axios from 'axios';
+// import axios from 'axios';
 import { addBelongAttrToNav } from '../../assets/js/navConfig';
 
 export default {
@@ -236,7 +236,7 @@ export default {
         .then(async () => {
           this.loading = true;
           try {
-            let response = await axios.post(`${window.config.apiHost}/login`, {
+            let response = await this.$axios.post('/login', {
               phone: this.loginForm.userName.trim(),
               password: this.loginForm.password.trim()
             });
@@ -245,8 +245,8 @@ export default {
               session.setString('token', response.data.token);
               session.setObject('operator', response.data.user);
               // 获取用户信息
-              let userInfo = await axios.get(
-                `${window.config.apiHost}/user/info`,
+              let userInfo = await this.$axios.get(
+                '/user/info',
                 {
                   headers: {
                     Authorization: response.data.token
@@ -306,7 +306,7 @@ export default {
         return;
       }
       try {
-        await axios.post(`${window.config.apiHost}/user/checkPhone`, {
+        await this.$axios.post('/user/checkPhone', {
           captcha: this.captchaForm.captcha,
           phone: this.captchaForm.oldPhone
         });
