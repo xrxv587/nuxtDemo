@@ -4,10 +4,12 @@ module.exports = {
     'element-ui/lib/theme-chalk/index.css'
   ],
   plugins: [
-    { src: '@@plugins/elementUI', ssr: true }
+    { src: '@@plugins/elementUI', ssr: true },
+    { src: '~/plugins/redirect', ssr: true }
   ],
   vendor: [
-    'elementUI'
+    'elementUI',
+    '~/plugins/vuex'
   ],
   build: {
     extend(config, {isDev, isClient}) {

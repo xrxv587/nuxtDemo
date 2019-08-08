@@ -70,7 +70,7 @@
 <script>
 import session from '../../assets/js/session';
 import local from '../../assets/js/local';
-// import axios from 'axios';
+import { mapActions } from 'vuex';
 import { addBelongAttrToNav } from '../../assets/js/navConfig';
 
 export default {
@@ -195,6 +195,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions('global', ['setToken']),
     getCaptchaTXT() {
       if (this.captchaForm.oldPhone === '') {
         this.$message({
@@ -243,6 +244,7 @@ export default {
             this.loading = false;
             if (response) {
               session.setString('token', response.data.token);
+              this.setToken(response.data.token);
               session.setObject('operator', response.data.user);
               // 获取用户信息
               let userInfo = await this.$axios.get(
@@ -266,7 +268,8 @@ export default {
               // 拼装二级菜单
               userInfo.data.permissions = addBelongAttrToNav(userInfo.data.permissions);
               session.setObject('userInfo', userInfo.data);
-              window.location.href = '/';
+              // window.location.href = '/';
+              this.$router.replace('/');
               // 是否记住密码
               if (this.checked) {
                 local.setString('userName', this.loginForm.userName.trim());

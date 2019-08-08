@@ -1,24 +1,24 @@
 export default {
   setString(key, value) {
-    window.localStorage.setItem(key, value);
+    process.client && window.localStorage.setItem(key, value);
   },
   getString(key) {
-    return window.localStorage.getItem(key);
+    if (process.client) return window.localStorage.getItem(key);
   },
   setObject(key, value) {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    process.client && window.localStorage.setItem(key, JSON.stringify(value));
   },
   getObject(key) {
-    const str = window.localStorage.getItem(key);
+    const str = process.client && window.localStorage.getItem(key);
     if (str) {
       return JSON.parse(str);
     }
     return null;
   },
   clear() {
-    window.localStorage.clear();
+    process.client && window.localStorage.clear();
   },
   deleteItem(key) {
-    window.localStorage.removeItem(key);
+    process.client && window.localStorage.removeItem(key);
   }
 };
